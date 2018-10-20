@@ -4,14 +4,30 @@
       <div class="form">
         <div>
           <h2>{{title}}</h2>
-        </div>
-        <div>
           <h3>Description:</h3>
           <span>{{description}}</span>
-        </div>
-        <div>
-          <h3>Components:<button>Add</button></h3>
+          <h3>Components 12: <button>Add</button></h3>
+          <select>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="opel">Opel</option>
+            <option value="audi">Audi</option>
+          </select>
+
           <span>{{components}}</span>
+        </div>
+        <div class="new_component hidden">
+          <div class="form">
+            <div>
+              <input type="text" name="title" placeholder="TITLE" v-model="title">
+            </div>
+            <div>
+              <textarea rows="15" cols="15" placeholder="DESCRIPTION" v-model="description"></textarea>
+            </div>
+            <div>
+              <button class="app_post_btn" @click="addPost">Add</button>
+            </div>
+          </div>
         </div>
       </div>
       <router-link v-bind:to="{ name: 'Posts' }" >Back</router-link>
