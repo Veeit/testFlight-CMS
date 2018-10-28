@@ -3,7 +3,7 @@
     <div class="sitenav">
       <h1>TestFlight CMS</h1>
       <h2>Main</h2>
-      <ul v-for="item in NavItems" :key="item">
+      <ul v-for="item in NavItems" :key="item.id">
         <li><router-link :to="{ path: item.link }">{{item.name}}</router-link></li>
       </ul>
     </div>

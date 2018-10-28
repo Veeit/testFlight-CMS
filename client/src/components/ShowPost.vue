@@ -6,26 +6,27 @@
           <h2>{{title}}</h2>
           <h3>Description:</h3>
           <span>{{description}}</span>
-          <h3>Components 12: <button>Add</button></h3>
+          <h3>Components:</h3>
           <select>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="opel">Opel</option>
-            <option value="audi">Audi</option>
-          </select>    
+            <option v-for="(value, key) in components" :key="key">{{key}}</option>
+          </select>
+          <button>Add</button>
+          <br><br>
 
+          <span>{{components.TextComponent}}</span><br><br>
           <span>{{components}}</span>
         </div>
         <div class="new_component hidden">
           <div class="form">
-            <div>
-              <input type="text" name="title" placeholder="TITLE" v-model="title">
+            <div v-if="components">
+              <input type="text" name="title" placeholder="components" v-model="components.TextComponent.id">
             </div>
             <div>
               <textarea rows="15" cols="15" placeholder="DESCRIPTION" v-model="description"></textarea>
             </div>
             <div>
-              <button class="app_post_btn" @click="addPost">Add</button>
+              <!-- <button class="app_post_btn" @click="addPost">Add</button> -->
+              <button class="app_post_btn" @click="addComponents()">Add</button>
             </div>
           </div>
         </div>
@@ -64,11 +65,18 @@ export default {
         description: this.description
       })
       this.$router.push({ name: 'Posts' })
+    },
+    addComponents: function () {
+      alert('test')
     }
   }
 }
 </script>
 <style type="text/css">
+.form div.new_component.hidden {
+  display: none;
+}
+
 .form input, .form textarea {
   width: 500px;
   padding: 10px;

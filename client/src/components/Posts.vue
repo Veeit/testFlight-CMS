@@ -8,7 +8,7 @@
           <td id="Description">Description</td>
           <td id="Action">Action</td>
         </tr>
-        <tr v-for="post in posts" :key="post">
+        <tr v-for="post in posts" :key="post.id">
           <td>{{ post.title }}</td>
           <td>{{ post.description }}</td>
           <td align="center">
