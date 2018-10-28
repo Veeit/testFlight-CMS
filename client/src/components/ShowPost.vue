@@ -10,23 +10,24 @@
           <select>
             <option v-for="(value, key) in components" :key="key">{{key}}</option>
           </select>
-          <button>Add</button>
+          <button  @click="variable.ishidden = false">Add</button>
           <br><br>
-
-          <span>{{components.TextComponent}}</span><br><br>
           <span>{{components}}</span>
         </div>
-        <div class="new_component hidden">
+        <div v-bind:class="{hidden: variable.ishidden}" class="new_component" ref="new_component">
           <div class="form">
             <div v-if="components">
-              <input type="text" name="title" placeholder="components" v-model="components.TextComponent.id">
+              <span>ID: </span><input type="text" name="title" placeholder="components" v-model="components.TextComponent.id">
+            </div>
+            <div v-if="components">
+              <span>Title: </span> <input placeholder="Title" v-model="components.TextComponent.Titel">
+            </div>
+            <div v-if="components">
+              <span>Text: </span> <textarea rows="10" cols="15" placeholder="Text" v-model="components.TextComponent.text"></textarea>
             </div>
             <div>
-              <textarea rows="15" cols="15" placeholder="DESCRIPTION" v-model="description"></textarea>
-            </div>
-            <div>
-              <!-- <button class="app_post_btn" @click="addPost">Add</button> -->
-              <button class="app_post_btn" @click="addComponents()">Add</button>
+              <button class="app_post_btn" @click="updatePost">Add</button>
+              <!-- <button class="app_post_btn">Add</button> -->
             </div>
           </div>
         </div>
@@ -39,11 +40,14 @@
 import PostsService from '@/services/PostsService'
 export default {
   name: 'EditPost',
-  data () {
+  data: function () {
     return {
       title: '',
       description: '',
-      components: ''
+      components: '',
+      variable: {
+        ishidden: true
+      }
     }
   },
   mounted () {
@@ -62,12 +66,10 @@ export default {
       await PostsService.updatePost({
         id: this.$route.params.id,
         title: this.title,
-        description: this.description
+        description: this.description,
+        components: this.components
       })
-      this.$router.push({ name: 'Posts' })
-    },
-    addComponents: function () {
-      alert('test')
+      // this.$router.push({ name: 'Posts' })
     }
   }
 }

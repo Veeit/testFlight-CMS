@@ -43,10 +43,11 @@ module.exports = function(app, db) {
 
   // Update a post
   app.put('/posts/:id', (req, res) => {
-    page.findById(req.params.id, 'title description', function (error, post) {
+    page.findById(req.params.id, 'title description components', function (error, post) {
       if (error) { throw error; }
       post.title = req.body.title
       post.description = req.body.description
+      post.components = req.body.components
 
       post.save(function (error) {
         if (error) { throw error; }
