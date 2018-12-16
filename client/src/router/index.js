@@ -4,6 +4,8 @@ import Posts from '@/components/Posts.vue'
 import NewPost from '@/components/NewPost.vue'
 import EditPost from '@/components/EditPost.vue'
 import ShowPost from '@/components/ShowPost.vue'
+import EditPostComponent from '@/components/EditPostComponent.vue'
+import NewPostComponent from '@/components/NewPostComponent.vue'
 
 Vue.use(Router)
 
@@ -34,6 +36,16 @@ export default new Router({
       path: '/posts/Show/:id',
       name: 'ShowPost',
       component: ShowPost
+    },
+    {
+      path: '/posts/:id/edit/:compID',
+      name: 'EditPostComponent',
+      component: EditPostComponent
+    },
+    {
+      path: '/posts/:id/new/:compType',
+      name: 'NewPostComponent',
+      component: NewPostComponent
     }
   ]
 })

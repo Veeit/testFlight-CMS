@@ -5,9 +5,10 @@ module.exports = function(app, db) {
 
   // Add new page
   app.post('/posts', (req, res) => {
-    var Components = {TextComponent : { "id" : "v1", "Titel": "Ein toller" ,"text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do."},
-                      TextImageComponent : { "id" : "v2", "Titel": "Ein toller" ,"text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.", "ImgSrc": "/img/test.img"}};
-
+    // var Components = {"TextComponent" : { "id" : "v1", "Titel": "Ein toller" ,"text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do."},
+                      // "TextImageComponent" : { "id" : "v2", "Titel": "Ein toller" ,"text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.", "ImgSrc": "/img/test.img"}};
+    var Components = new Object();
+    Components["v1"] = { "type" : "TextComponent", "Titel": "Ein toller" ,"text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do."};
     var new_page = new page({
       title: req.body.title,
       description: req.body.description,
@@ -48,6 +49,43 @@ module.exports = function(app, db) {
       post.title = req.body.title
       post.description = req.body.description
       post.components = req.body.components
+
+      post.save(function (error) {
+        if (error) { throw error; }
+        res.send({
+          success: true
+        })
+      })
+    })
+  })
+
+  // Add a page component
+  app.put('/posts/:id/new/', (req, res) => {
+    page.findById(req.params.id, 'title description components newComponent newCompID', function (error, post) {
+      if (error) { throw error; }
+      post.title = req.body.title
+      post.description = req.body.description
+      var componentList = req.body.components
+      componentList[req.body.newCompID] = req.body.newComponent;
+      post.components = componentList;
+
+      post.save(function (error) {
+        if (error) { throw error; }
+        res.send({
+          success: true
+        })
+      })
+    })
+  })
+
+  app.delete('/posts/:id/del/', (req, res) => {
+    page.findById(req.params.id, 'title description components delCompID', function (error, post) {
+      if (error) { throw error; }
+      post.title = req.body.title
+      post.description = req.body.description
+      var componentList = req.body.components
+      delete componentList[req.body.delCompID]
+      post.components = componentList
 
       post.save(function (error) {
         if (error) { throw error; }

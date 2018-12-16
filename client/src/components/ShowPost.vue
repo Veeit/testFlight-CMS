@@ -3,33 +3,54 @@
     <h1>Show Page</h1>
       <div class="form">
         <div>
-          <h2>{{title}}</h2>
-          <h3>Description:</h3>
-          <span>{{description}}</span>
-          <h3>Components:</h3>
-          <select>
-            <option v-for="(value, key) in components" :key="key">{{key}}</option>
-          </select>
-          <button  @click="variable.ishidden = false">Add</button>
-          <br><br>
-          <span>{{components}}</span>
+          <table>
+            <tr>
+              <td style="width: 100px;"><h2 style="margin: 0px">Title:</h2></td>
+              <td><h2 style="margin: 0px">{{title}}</h2></td>
+            </tr>
+            <tr>
+              <td style="width: 100px;"><h2 style="margin: 0px">Description:</h2></td>
+              <td><h2 style="margin: 0px">{{description}}</h2></td>
+            </tr>
+          </table>
+          <h3>Components:<button  @click="variable.ishidden = !variable.ishidden">Add</button></h3>
         </div>
         <div v-bind:class="{hidden: variable.ishidden}" class="new_component" ref="new_component">
           <div class="form">
-            <div v-if="components">
-              <span>ID: </span><input type="text" name="title" placeholder="components" v-model="components.TextComponent.id">
-            </div>
-            <div v-if="components">
-              <span>Title: </span> <input placeholder="Title" v-model="components.TextComponent.Titel">
-            </div>
-            <div v-if="components">
-              <span>Text: </span> <textarea rows="10" cols="15" placeholder="Text" v-model="components.TextComponent.text"></textarea>
-            </div>
-            <div>
-              <button class="app_post_btn" @click="updatePost">Add</button>
-              <!-- <button class="app_post_btn">Add</button> -->
-            </div>
+            <table v-if="components">
+              <tr>
+                <td>Type:</td>
+                <td>
+                  <select>
+                    <option v-for="(value, key) in components" :key="key">{{value.type}}</option>
+                  </select>
+                </td>
+                <td style="width: 300px;">
+                  <!-- <button class="app_post_btn" @click="updatePost">Add</button> -->
+                  <router-link v-bind:to="{ name: 'NewPostComponent', params: { compType:'TextComponent'} }">Add</router-link>
+                </td>
+              </tr>
+            </table>
           </div>
+        </div>
+        <div class="show">
+          <table>
+            <tr>
+              <th>ID</th>
+              <th>Type</th>
+              <th>Titel</th>
+              <th>Controll</th>
+            </tr>
+            <tr v-for="(value, key) in components" :key="key">
+              <td>{{ key }}</td>
+              <td>{{ value.type }}</td>
+              <td>{{ value.Titel }}</td>
+              <td align="center">
+                <router-link v-bind:to="{ name: 'EditPostComponent', params: { compID: key } }">Edit</router-link> |
+                <a href="#" @click="deleteComponent(key)">Delete</a>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
       <router-link v-bind:to="{ name: 'Posts' }" >Back</router-link>
@@ -45,6 +66,7 @@ export default {
       title: '',
       description: '',
       components: '',
+      pageID: this.$route.params.id,
       variable: {
         ishidden: true
       }
@@ -70,11 +92,24 @@ export default {
         components: this.components
       })
       // this.$router.push({ name: 'Posts' })
+    },
+    async deleteComponent (key) {
+      await PostsService.deleteComponent({
+        id: this.$route.params.id,
+        title: this.title,
+        description: this.description,
+        components: this.components,
+        delCompID: key
+      })
+      this.getPost()
     }
   }
 }
 </script>
 <style type="text/css">
+table {
+  width: 100%;
+}
 .form div.new_component.hidden {
   display: none;
 }
@@ -99,5 +134,8 @@ export default {
   width: 520px;
   border: none;
   cursor: pointer;
+}
+.new_component .form {
+  margin: 0px;
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
   <div class="posts">
-    <h1>Posts</h1>
+    <h1>Page <router-link :to="{ path: '/posts/new' }">+</router-link></h1>
     <div v-if="posts.length > 0" class="table-wrap">
       <table>
         <tr>
-          <td id="Title">Title</td>
-          <td id="Description">Description</td>
-          <td id="Action">Action</td>
+          <th id="Title">Title</th>
+          <th id="Description">Description</th>
+          <th id="Action">Action</th>
         </tr>
-        <tr v-for="post in posts" :key="post.id">
+        <tr v-for="post in posts" :key="post.type">
           <td>{{ post.title }}</td>
           <td>{{ post.description }}</td>
           <td align="center">
@@ -84,7 +84,7 @@ table tr td {
 table tr:nth-child(odd) {
   background: #f2f2f2;
 }
-table tr:nth-child(1) {
+table th {
   background: #158BB6;
   color: #fff;
 }
