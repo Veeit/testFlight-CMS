@@ -21,10 +21,10 @@ export default {
       NavItems: [
         {name: 'Page List', link: '/posts'},
         {name: 'New Page', link: '/posts/new'},
-        {name: 'Ich'},
-        {name: 'bin'},
-        {name: 'ein'},
-        {name: 'neues'},
+        {name: 'Users'},
+        {name: 'Einstellungen'},
+        {name: 'Profil'},
+        {name: 'logout'},
         {name: 'cms'}
       ]
     }

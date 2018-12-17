@@ -9,6 +9,7 @@
           <textarea rows="15" cols="15" placeholder="DESCRIPTION" v-model="description"></textarea>
         </div>
         <div>
+          <router-link v-bind:to="{ name: 'Posts' }" ><button class="app_post_btn">Back</button></router-link>
           <button class="app_post_btn" @click="updatePost">Update</button>
         </div>
       </div>

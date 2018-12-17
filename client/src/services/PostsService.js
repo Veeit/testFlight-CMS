@@ -21,10 +21,6 @@ export default {
     return Api().delete('posts/' + arg.id + '/del', arg)
   },
 
-  // deleteComponent (id) {
-  //   return Api().put('posts/del/' + id)
-  // },
-
   getPost (arg) {
     return Api().get('post/' + arg.id)
   },

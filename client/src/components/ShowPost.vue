@@ -26,7 +26,6 @@
                   </select>
                 </td>
                 <td style="width: 300px;">
-                  <!-- <button class="app_post_btn" @click="updatePost">Add</button> -->
                   <router-link v-bind:to="{ name: 'NewPostComponent', params: { compType:'TextComponent'} }">Add</router-link>
                 </td>
               </tr>

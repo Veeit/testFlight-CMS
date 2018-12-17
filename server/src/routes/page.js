@@ -5,10 +5,9 @@ module.exports = function(app, db) {
 
   // Add new page
   app.post('/posts', (req, res) => {
-    // var Components = {"TextComponent" : { "id" : "v1", "Titel": "Ein toller" ,"text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do."},
-                      // "TextImageComponent" : { "id" : "v2", "Titel": "Ein toller" ,"text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.", "ImgSrc": "/img/test.img"}};
     var Components = new Object();
     Components["v1"] = { "type" : "TextComponent", "Titel": "Ein toller" ,"text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do."};
+    
     var new_page = new page({
       title: req.body.title,
       description: req.body.description,
